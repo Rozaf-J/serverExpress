@@ -1,6 +1,8 @@
 const userCont = require("../controlers/Users");
 const validate = require("../middleware/validators/validationMiddleware");
-const userSchema = require("../middleware/validators/Schemas/userValidation");
+const validationSchemas = require("../middleware/validators/Schemas/userValidation");
+const validationErrorHandler = require("../middleware/validators/validationErrorHandler");
+const errorHandler = require("../middleware/errorHandler");
 const express = require("express");
 const router = express.Router();
 
@@ -11,12 +13,20 @@ router.use(function (req, res, next) {
 router
   .route("/")
   .get(userCont.viewUsers)
-  .post(validate.validation(userSchema), userCont.addUser)
+  .post(
+    validate.UserValidation(validationSchemas.userSchema),
+    validationErrorHandler,
+    userCont.addUser
+  )
   .delete(userCont.deleteUser)
-  .put(userCont.updateUser);
+  .put(
+    validate.UserValidation(validationSchemas.updateUserSchema),
+    userCont.updateUser
+  )
+  .all(errorHandler);
 
 router.route("/alarm").get((req, res) => {
-  res.render("../views/Alarm.pug");
+  res.render("../src/views/alarm.pug");
 });
 
 module.exports = router;

@@ -1,0 +1,9 @@
+extends layout/layout
+block content
+    div(class="position-relative mt-5")
+        h1(class="d-flex justify-content-center") ALARM
+        h3(class="d-flex justify-content-center") Error occured
+        div(class="form-floating")
+            textarea(class="form-control" placeholder="Leave a comment here" id="floatingTextarea")= error
+            label(for="floatingTextarea") Error body
+        a(class="text-decoration-none d-flex justify-content-center" href="/") back

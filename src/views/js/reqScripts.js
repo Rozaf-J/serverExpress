@@ -13,7 +13,8 @@ async function userPost() {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(() => {
+    }).then((response) => {
+      console.log(response);
       window.location.reload();
     });
   } catch (error) {
@@ -39,15 +40,14 @@ async function userDelete(id) {
   }
 }
 
-async function userUpdate(name, age, i) {
+async function userUpdate(id, i) {
   let name_set = document.getElementById("name." + i + "").value;
-  let age_set = document.getElementById("" + age + "").value;
+  let age_set = document.getElementById("age." + i + "").value;
 
   const data = {
-    old_name: name,
-    old_age: age,
-    new_name: name_set,
-    new_age: parseInt(age_set),
+    _id: id,
+    name: name_set,
+    age: parseInt(age_set),
   };
 
   try {
@@ -58,7 +58,7 @@ async function userUpdate(name, age, i) {
         "Content-Type": "application/json",
       },
     }).then(() => {
-      window.location.reload();
+      // window.location.reload();
     });
   } catch (error) {
     console.error("Ошибка:", error);

@@ -1,33 +1,33 @@
 const schemas = require("./mgSchemas/userSchema");
 
 getUsers = () => {
-  return schemas.Users.find({}, (err, data) => {
-    return data;
+  return schemas.Users.find({}, (err, users) => {
+    return users;
   });
 };
 
-addUser = async (data) => {
+addUser = async (user) => {
   try {
-    const newUser = await new schemas.Users(data);
+    const newUser = await new schemas.Users(user);
     await newUser.save();
   } catch (e) {
     console.log(e);
   }
 };
 
-delUser = async (data) => {
+delUser = async (userId) => {
   try {
-    await schemas.Users.deleteOne(data);
+    await schemas.Users.deleteOne(userId);
   } catch (e) {
     console.log(e);
   }
 };
 
-updUser = async (data) => {
+updUser = async (updatedUser) => {
   try {
     await schemas.Users.updateOne(
-      { name: data[2], age: data[3] },
-      { name: data[0], age: data[1] }
+      { _id: updatedUser._id },
+      { name: updatedUser.name, age: updatedUser.age }
     );
   } catch (e) {
     console.log(e);

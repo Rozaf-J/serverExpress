@@ -29,13 +29,7 @@ deleteUser = async (req, res) => {
 
 updateUser = async (req, res) => {
   try {
-    let values = [
-      req.body.new_name,
-      req.body.new_age,
-      req.body.old_name,
-      req.body.old_age,
-    ];
-    await db.updUser(values);
+    await db.updUser(req.body);
     await res.sendStatus(200);
   } catch (e) {
     console.log(e);

@@ -1,4 +1,4 @@
-exports.validation = (schema) => (req, res, next) => {
+UserValidation = (schema) => (req, res, next) => {
   let body = req.body;
 
   schema.isValid(body).then((result) => {
@@ -6,7 +6,11 @@ exports.validation = (schema) => (req, res, next) => {
       return next();
     } else {
       console.log("error");
-      res.render("../src/views/alarm.pug", { error: "Wrong Data" });
+      next(new Error("Validation error"));
     }
   });
+};
+
+module.exports = {
+  UserValidation,
 };

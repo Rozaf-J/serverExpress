@@ -5,4 +5,13 @@ let userSchema = yup.object().shape({
   age: yup.number().required().positive().integer(),
 });
 
-module.exports = userSchema;
+let updateUserSchema = yup.object().shape({
+  _id: yup.string().min(2).required(),
+  name: yup.string().min(2).max(100).required(),
+  age: yup.number().required().positive().integer(),
+});
+
+module.exports = {
+  userSchema,
+  updateUserSchema,
+};
