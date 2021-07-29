@@ -1,0 +1,61 @@
+extends layout/layout
+block content
+    div(class="row")
+        nav(id="navbar-example3" class="navbar navbar-light bg-light flex-column align-items-stretch p-3 col-2" style="height: 300px")
+            a(class="navbar-brand") DB managment
+            button(type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal") Add new user
+            button(type="button" class="btn btn-primary") smth
+            button(type="button" class="btn btn-primary") smth
+
+        div(data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-offset="0" tabindex="0" class="col")
+            table(class="table")
+                thead
+                    tr
+                        th(scope="col") Name
+                        th(scope="col") Age
+                        th(scope="col") Actions
+                tbody
+                    each user, i in users
+                        tr
+                            td= user.name
+                            td= user.age
+                            td
+                                button(type="button" class='btn btn-success mx-4' data-bs-toggle="modal" data-bs-target="#" + user.name) Update
+                                button(type="submit" class='btn btn-danger' onclick='userDelete("' + user._id + '");') Delete
+                        div(class="modal fade" id=user.name tabindex="-1" aria-labelledby=user.name aria-hidden="true")
+                            div(class="modal-dialog")
+                                div(class="modal-content")
+                                    div(class="modal-header")
+                                        h5(class="modal-title" id=user.name) Add new user
+                                        button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+                                    div(class="modal-body row")
+                                        div(class="mb-3 col")
+                                            label(for="exampleInputName" class="form-label") Name
+                                            input(class="form-control" name="name_set" id="name." + i + "" placeholder="" + user.name + "")
+                                        div(class="mb-3 col")
+                                            label(for="exampleInputAge" class="form-label") Age
+                                            input(class="form-control" name="age_set" id=user.age placeholder="" + user.age + "")
+                                    div(class="modal-footer")
+                                        button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close
+                                        button(class="btn btn-primary" onclick='userUpdate("' + user.name + '", ' + user.age + ', ' + i + ');') Save changes
+
+    div(class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true")
+        div(class="modal-dialog")
+            div(class="modal-content")
+                div(class="modal-header")
+                    h5(class="modal-title" id="exampleModalLabel") Add new user
+                    button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+                div(class="modal-body row")
+                    div(class="mb-3 col")
+                        label(class="form-label") Name
+                        input(class="form-control" name="name" id="name")
+                    div(class="mb-3 col")
+                        label(class="form-label") Age
+                        input(class="form-control" name="age" id="age")
+                div(class="modal-footer")
+                    button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close
+                    button(class="btn btn-primary" onclick='userPost()') Save changes
+
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous")
+    script
+        include js/FetchScripts.js
